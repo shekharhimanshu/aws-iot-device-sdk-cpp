@@ -579,6 +579,8 @@ namespace awsiotsdk {
 
         util::String payload = util::JsonParser::ToString(diff);
 
+        std::cout << "#########[DEBUG] payload: " << payload << std::endl; 
+
         rc = p_mqtt_client_->Publish(Utf8String::Create(shadow_topic_update_), false, false, mqtt::QoS::QOS0,
                                      payload, mqtt_command_timeout_);
 
