@@ -549,6 +549,9 @@ namespace awsiotsdk {
             return ResponseCode::FAILURE;
         }
 
+        std::cout << "#########[DEBUG] cur_server_state_document_: " << util::JsonParser::ToString(cur_server_state_document_) << std::endl; 
+        std::cout << "#########[DEBUG] cur_device_state_document_: " << util::JsonParser::ToString(cur_device_state_document_) << std::endl;
+
         if (cur_server_state_document_.HasMember(SHADOW_DOCUMENT_STATE_KEY)
             && cur_device_state_document_.HasMember(SHADOW_DOCUMENT_STATE_KEY)
             && (cur_device_state_document_[SHADOW_DOCUMENT_STATE_KEY]
@@ -569,6 +572,8 @@ namespace awsiotsdk {
         // TODO: Optimization needed here
         util::JsonDocument diff;
         util::JsonParser::DiffValues(diff, cur_server_state_document_, cur_device_state_document_, diff.GetAllocator());
+        std::cout << "#########[DEBUG] diff: " << util::JsonParser::ToString(diff) << std::endl;
+        
         if (diff.HasMember(SHADOW_DOCUMENT_TIMESTAMP_KEY)) {
             diff.EraseMember(SHADOW_DOCUMENT_TIMESTAMP_KEY);
         }
