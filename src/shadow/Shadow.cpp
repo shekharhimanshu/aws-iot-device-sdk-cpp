@@ -582,6 +582,11 @@ namespace awsiotsdk {
             diff.EraseMember(SHADOW_DOCUMENT_VERSION_KEY);
         }
 
+        // make sure that payload is valid
+        if (!diff.HasMember(SHADOW_DOCUMENT_STATE_KEY)) {
+            return ResponseCode::SHADOW_NOTHING_TO_UPDATE;
+        }
+
         util::String payload = util::JsonParser::ToString(diff);
 
         std::cout << "#########[DEBUG] payload: " << payload << std::endl; 
